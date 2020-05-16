@@ -1,17 +1,11 @@
 // ISO_6346
 // 
 // Id System Format 
-// 
-//
-// Advanced Topics in Programing -- TAU -- Spring 2020
 //
 #pragma once
 
-#include <iostream>
-#include <cassert>
+#include <string>
 #include <cmath>
-#include <regex>
-#include <sstream>
 
 // ISO_6346 Id System Format:
 // https://en.wikipedia.org/wiki/ISO_6346 
@@ -48,7 +42,7 @@ private:
     //
     // A stub: no need to implement this function
     static bool isOwnerCodeRegistered(const std::string& owner_code) {
-        return true;
+        return !owner_code.empty();
     }
     
     // CategoryIdentifier - Equipment category identifier:
@@ -81,11 +75,11 @@ private:
         struct CharCoder {
             // Assums 'A' <= ch <= 'Z' or '0' <= ch <= '9'
             // Note: any other input is undefined!
-            static int code(char ch) { 
+            inline static int code(char ch) { 
                 if (ch <= '9') 
                     return ch - '0';
                     
-                // Following implements the encoding table above - Hard coding the table is perfectly fine and provides better runtime efficiency!
+                // Following implements the encoding table above - Hard coding the table is perfectly fine and provides better runtime efficiency!
                 float character_pos = static_cast<float>(ch - 'A');
                 return first_code + character_pos + std::ceil(character_pos/first_code); 
             }
